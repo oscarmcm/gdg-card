@@ -20,6 +20,7 @@
     "/demo/"
   ],
   "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#~1.0.4",
     "polymer": "Polymer/polymer#^1.0.0"
   },
   "devDependencies": {
