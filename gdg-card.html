@@ -8,6 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 
 <!--
 An element providing a solution to no problem in particular.
@@ -30,15 +31,16 @@ Example:
   <template>
 
     <iron-ajax
+      id="ajax"
       auto
-      url="http://gdata.youtube.com/feeds/api/videos/"
-      params='{"alt":"json", "q":"chrome"}'
+      url="https://jsonp.nodejitsu.com/"
       handle-as="json"
-      on-response="handleResponse"
-      debounce-duration="300"></iron-ajax>
+      method="GET"
+      last-response="{{ajaxResponse}}"></iron-ajax>
 
 
     <p>{{ chapter }}</p>
+    <p>[[ajaxResponse.created_at]]</p>
   </template>
 
 </dom-module>
@@ -68,6 +70,11 @@ Example:
       //
       // This is the point where you should make modifications to the DOM (when
       // necessary), or kick off any processes the element wants to perform.
+      console.log(this.chapter);
+    },
+    setajax: function () {
+      this.$.ajax.params = {"url": "https://hub.gdgx.io/api/v1/chapters/"+this.chapter};
+      this.$.ajax.generateRequest();
     },
 
     attached: function() {
