@@ -7,9 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
-
+<link rel="import" href="../google-map/google-map.html">
+<link rel="import" href="../google-map/google-map-marker.html">
 <!--
 An element providing a solution to no problem in particular.
 
@@ -26,21 +28,37 @@ Example:
       display: block;
       box-sizing: border-box;
     }
+    google-map {
+      height: 200px;
+    }
   </style>
 
   <template>
 
     <iron-ajax
-      id="ajax"
       auto
+      id="ajax"
       url="https://jsonp.nodejitsu.com/"
+      params='{ "url": "https://hub.gdgx.io/api/v1/chapters/113255713593303778606" }'
       handle-as="json"
       method="GET"
       last-response="{{ajaxResponse}}"></iron-ajax>
+    
+    <section>
+
+      <p>[[ajaxResponse.name]]</p>
+      <google-map latitude="[[ajaxResponse.geo.lat]]" longitude="[[ajaxResponse.geo.lng]]" fit-to-markers>
+        <google-map-marker 
+          latitude="[[ajaxResponse.geo.lat]]"
+          longitude="[[ajaxResponse.geo.lng]]"
+          title="[[ajaxResponse.name]]">
+          <p>[[ajaxResponse.name]]</p>
+        </google-map-marker>
+      </google-map>
+
+    </section>
 
 
-    <p>{{ chapter }}</p>
-    <p>[[ajaxResponse.created_at]]</p>
   </template>
 
 </dom-module>
@@ -72,10 +90,11 @@ Example:
       // necessary), or kick off any processes the element wants to perform.
       console.log(this.chapter);
     },
-    setajax: function () {
+
+    /*setajax: function () {
       this.$.ajax.params = {"url": "https://hub.gdgx.io/api/v1/chapters/"+this.chapter};
       this.$.ajax.generateRequest();
-    },
+    },*/
 
     attached: function() {
       // `attached` fires once the element and its parents have been inserted
