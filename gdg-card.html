@@ -39,7 +39,6 @@ Example:
       auto
       id="ajax"
       url="https://jsonp.nodejitsu.com/"
-      params='{ "url": "https://hub.gdgx.io/api/v1/chapters/113255713593303778606" }'
       handle-as="json"
       method="GET"
       last-response="{{ajaxResponse}}"></iron-ajax>
@@ -89,12 +88,13 @@ Example:
       // This is the point where you should make modifications to the DOM (when
       // necessary), or kick off any processes the element wants to perform.
       console.log(this.chapter);
+      this.setAjax();
     },
 
-    /*setajax: function () {
+    setAjax: function () {
       this.$.ajax.params = {"url": "https://hub.gdgx.io/api/v1/chapters/"+this.chapter};
       this.$.ajax.generateRequest();
-    },*/
+    },
 
     attached: function() {
       // `attached` fires once the element and its parents have been inserted
